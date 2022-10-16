@@ -1,23 +1,21 @@
 #include "lists.h"
 
-/**
- * check_cycle - finds the index at which a loop starts
- * @head: list head
- *
- * Return: 0 if no cycle 1 if there is cycle
- */
-int check_cycle(listint_t *head)
+int check_cycle(listint_t *list)
 {
-	listint_t *fast = head, *slow = head;
+	listint_t *tortoise, *hare;
 
-	if (!head || !(head->next))
+	tortoise = list;
+	if (!list)
 		return (0);
-	while (slow && fast && fast->next)
+
+	hare = list->next;
+
+	while (hare && hare->next)
 	{
-		slow = slow->next;
-		fast = fast->next->next;
-		if (slow == fast)
+		if (tortoise == hare)
 			return (1);
+		hare = hare->next->next;
+		tortoise = tortoise->next;
 	}
 	return (0);
 }
